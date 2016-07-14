@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -42,9 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        WordDatabase wdb = new WordDatabase(getApplicationContext());
+        wdb.open();
+        List<Words> availableWords = wdb.getEveryWordByDate();
+        wdb.close();
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), availableWords.size());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -59,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
 
     }
 
@@ -126,9 +137,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private int items = 1;
+
+        public SectionsPagerAdapter(FragmentManager fm, int item_count) {
             super(fm);
+            items = item_count;
         }
+
+
 
         @Override
         public Fragment getItem(int position) {
@@ -139,8 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return items;
         }
 
         @Override

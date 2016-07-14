@@ -9,6 +9,14 @@ public class Words {
     private String text;
     private String definition;
 
+    public Words() {
+    }
+
+    public Words(String text, String definition) {
+        this.text = text;
+        this.definition = definition;
+    }
+
     public int getId() {
         return id;
     }
