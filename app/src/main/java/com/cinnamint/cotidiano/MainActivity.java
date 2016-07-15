@@ -38,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
     private static List<Words> availableWords;
 
+    private long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
+    private long daysSinceCinnamintEpoch;
+
+    private Calendar cinnamintEpoch;
+
+    private static final int CINNAMINT_EPOCH_DAY = 15;
+    private static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
+    private static final int CINNAMINT_EPOCH_YEAR = 2016;
+
+
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -51,10 +63,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // July 14, 2016: day 1 of development
+        // Add the appropriate number of days
+        cinnamintEpoch.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY);
+        cinnamintEpoch.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
+        cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
+
+
+        Calendar today = Calendar.getInstance();
+        daysSinceCinnamintEpoch = (long) Math.ceil(
+                                            (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
+                                            );
+
+
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
         wdb.open();
-        availableWords = wdb.getEveryWordByDate();
+        availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch);
         wdb.close();
 
         // Create the adapter that will return a fragment for each of the three
@@ -147,9 +172,9 @@ public class MainActivity extends AppCompatActivity {
             // July 14, 2016: day 1 of development
             // Add the appropriate number of days
             Calendar fragmentDate = Calendar.getInstance();
-            fragmentDate.set(Calendar.DAY_OF_MONTH, 14 + (sectionNumber - 1));
-            fragmentDate.set(Calendar.MONTH, 7 - 1);
-            fragmentDate.set(Calendar.YEAR, 2016);
+            fragmentDate.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY + (sectionNumber - 1));
+            fragmentDate.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
+            fragmentDate.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
 
             // Format the day and date
             Date date = fragmentDate.getTime();

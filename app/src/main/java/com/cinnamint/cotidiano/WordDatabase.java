@@ -32,13 +32,13 @@ public class WordDatabase extends SQLiteAssetHelper {
 
 
 
-    public List<Words> getEveryWordByDate() {
+    public List<Words> getEveryWordByDate(long id) {
         List<Words> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM word WHERE WORD_ID <=" + 5, null);
+        Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM word WHERE WORD_ID <= ?", new String[] {Long.toString(id)});
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             String text = cursor.getString(0);
-            String def = cursor.getString(0);
+            String def = cursor.getString(1);
             Words targetWord = new Words(text, def);
             list.add(targetWord);
             cursor.moveToNext();
