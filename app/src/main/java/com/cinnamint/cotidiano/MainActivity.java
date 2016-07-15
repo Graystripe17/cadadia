@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private static List<Words> availableWords;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
         wdb.open();
-        List<Words> availableWords = wdb.getEveryWordByDate();
+        availableWords = wdb.getEveryWordByDate();
         wdb.close();
 
         // Create the adapter that will return a fragment for each of the three
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        // Move to farthest right position
+        mViewPager.setCurrentItem(availableWords.size() - 1);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -117,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+
+
             fragment.setArguments(args);
             return fragment;
         }
@@ -126,7 +134,19 @@ public class MainActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+
+
+            // July 14, 2016: day 1 of development
+            // Add the appropriate number of days
+            Calendar cinnamintEpoch = Calendar.getInstance();
+            cinnamintEpoch.set(Calendar.DAY_OF_MONTH, 14 + (sectionNumber - 1));
+            cinnamintEpoch.set(Calendar.MONTH, 7);
+            cinnamintEpoch.set(Calendar.YEAR, 2016);
+
+            String word = MainActivity.availableWords.get(sectionNumber - 1).getText();
+            textView.setText(getString(R.string.section_format, sectionNumber, word));
             return rootView;
         }
     }

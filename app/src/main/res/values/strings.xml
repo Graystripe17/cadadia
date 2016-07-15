@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Cotidiano</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_format">%1$d from section: %2$s</string>
 </resources>
