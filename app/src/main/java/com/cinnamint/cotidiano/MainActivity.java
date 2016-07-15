@@ -18,8 +18,11 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -140,13 +143,19 @@ public class MainActivity extends AppCompatActivity {
 
             // July 14, 2016: day 1 of development
             // Add the appropriate number of days
-            Calendar cinnamintEpoch = Calendar.getInstance();
-            cinnamintEpoch.set(Calendar.DAY_OF_MONTH, 14 + (sectionNumber - 1));
-            cinnamintEpoch.set(Calendar.MONTH, 7);
-            cinnamintEpoch.set(Calendar.YEAR, 2016);
+            Calendar fragmentDate = Calendar.getInstance();
+            fragmentDate.set(Calendar.DAY_OF_MONTH, 14 + (sectionNumber - 1));
+            fragmentDate.set(Calendar.MONTH, 7);
+            fragmentDate.set(Calendar.YEAR, 2016);
+
+            Date date = fragmentDate.getTime();
+
+            String dayOfWeekLabel = (new SimpleDateFormat("EEEE", new Locale("es", "ES"))).format(date.getTime());
+
+
 
             String word = MainActivity.availableWords.get(sectionNumber - 1).getText();
-            textView.setText(getString(R.string.section_format, sectionNumber, word));
+            textView.setText(getString(R.string.section_format, dayOfWeekLabel, sectionNumber, word));
             return rootView;
         }
     }
