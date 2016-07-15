@@ -136,7 +136,10 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView dayOfWeekLabel = (TextView) rootView.findViewById(R.id.day_of_week_label);
+            TextView wordLabel = (TextView) rootView.findViewById(R.id.word);
+            TextView definitionLabel = (TextView) rootView.findViewById(R.id.definition);
+            TextView dateLabel = (TextView) rootView.findViewById(R.id.date);
 
             int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 
@@ -145,17 +148,26 @@ public class MainActivity extends AppCompatActivity {
             // Add the appropriate number of days
             Calendar fragmentDate = Calendar.getInstance();
             fragmentDate.set(Calendar.DAY_OF_MONTH, 14 + (sectionNumber - 1));
-            fragmentDate.set(Calendar.MONTH, 7);
+            fragmentDate.set(Calendar.MONTH, 7 - 1);
             fragmentDate.set(Calendar.YEAR, 2016);
 
+            // Format the day and date
             Date date = fragmentDate.getTime();
+            SimpleDateFormat format = new SimpleDateFormat("d MMMM, yyyy", new Locale("es", "ES"));
 
-            String dayOfWeekLabel = (new SimpleDateFormat("EEEE", new Locale("es", "ES"))).format(date.getTime());
+            Words targetWord = MainActivity.availableWords.get(sectionNumber - 1);
+            String dayOfWeekContent = (new SimpleDateFormat("EEEE", new Locale("es", "ES"))).format(date.getTime());
+            String wordContent = targetWord.getText();
+            String definitionContent = targetWord.getDefinition();
+            String dateContent = format.format(date);
 
 
 
-            String word = MainActivity.availableWords.get(sectionNumber - 1).getText();
-            textView.setText(getString(R.string.section_format, dayOfWeekLabel, sectionNumber, word));
+            dayOfWeekLabel.setText(dayOfWeekContent);
+            wordLabel.setText(wordContent);
+            definitionLabel.setText(definitionContent);
+            dateLabel.setText(dateContent);
+
             return rootView;
         }
     }
