@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
     private static final int CINNAMINT_EPOCH_YEAR = 2016;
 
+    private static final String TAG = "CINNAMINT_COTIDIANO";
 
 
     /**
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         // July 14, 2016: day 1 of development
         // Add the appropriate number of days
+        cinnamintEpoch = Calendar.getInstance();
         cinnamintEpoch.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY);
         cinnamintEpoch.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
         cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                             (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
                                             );
 
+        Log.d(TAG, Long.toString(daysSinceCinnamintEpoch));
 
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
