@@ -7,9 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="3"
+    android:weightSum="100"
     tools:context="com.cinnamint.cotidiano.MainActivity$PlaceholderFragment"
     android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
     <android.support.v7.widget.CardView
@@ -18,7 +19,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="10"
         card_view:cardCornerRadius="2dp"
         android:layout_margin="2dp">
 
@@ -26,7 +27,8 @@
             android:id="@+id/day_of_week_label"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textSize="24sp"/>
 
     </android.support.v7.widget.CardView>
 
@@ -37,14 +39,16 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="60"
         card_view:cardCornerRadius="2dp"
         android:layout_margin="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dip"
+            android:showDividers="middle|beginning|end">
 
             <TextView
                 android:id="@+id/word"
@@ -54,11 +58,13 @@
                 android:fontFamily="@android:string/ok"
                 android:text="Word"
                 android:singleLine="false"
-                android:textSize="36sp" />
+                android:textSize="48sp"
+                android:layout_gravity="center" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/darker_gray"
+                android:layout_margin="22dip" />
 
 
             <TextView
@@ -66,11 +72,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:text="Definition" />
+                android:text="Definition"
+                android:layout_margin="20dip" />
 
         </LinearLayout>
-
-
 
     </android.support.v7.widget.CardView>
 
@@ -80,7 +85,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="10"
         card_view:cardCornerRadius="2dp"
         android:layout_margin="2dp">
 
@@ -88,7 +93,8 @@
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textSize="24sp"/>
 
     </android.support.v7.widget.CardView>
 

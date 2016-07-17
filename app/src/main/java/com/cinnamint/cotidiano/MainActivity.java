@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static List<Words> availableWords;
 
-    private long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
-
     private long daysSinceCinnamintEpoch;
 
     private Calendar cinnamintEpoch;
+
+    private static final long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
     private static final int CINNAMINT_EPOCH_DAY = 15;
     private static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
         wdb.open();
-        availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch);
+        availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch + 100);
         wdb.close();
 
         // Create the adapter that will return a fragment for each of the three
