@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
         wdb.open();
-        availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch + 100);
+        availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch + 1);
         wdb.close();
 
         Log.d(TAG, getApplicationInfo().toString());
