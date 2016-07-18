@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     private long daysSinceCinnamintEpoch;
 
-    private Calendar cinnamintEpoch;
+    public static Calendar cinnamintEpoch;
 
     private static final long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
-    private static final int CINNAMINT_EPOCH_DAY = 15;
-    private static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
-    private static final int CINNAMINT_EPOCH_YEAR = 2016;
+    public static final int CINNAMINT_EPOCH_DAY = 15;
+    public static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
+    public static final int CINNAMINT_EPOCH_YEAR = 2016;
 
     private static final String TAG = "CINNAMINT_COTIDIANO";
 
@@ -57,6 +57,24 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    public void instantiateCinnamintEpoch() {
+        // July 14, 2016: day 1 of development
+        // Add the appropriate number of days
+        cinnamintEpoch = Calendar.getInstance();
+        cinnamintEpoch.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY);
+        cinnamintEpoch.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
+        cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
+    }
+
+    public long getDaysSinceCinnamintEpoch(Calendar today) {
+        return (long) Math.ceil(
+                (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
+        );
+    }
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,26 +83,16 @@ public class MainActivity extends AppCompatActivity {
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        // July 14, 2016: day 1 of development
-        // Add the appropriate number of days
-        cinnamintEpoch = Calendar.getInstance();
-        cinnamintEpoch.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY);
-        cinnamintEpoch.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
-        cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
+        instantiateCinnamintEpoch();
 
-
-        Calendar today = Calendar.getInstance();
-        daysSinceCinnamintEpoch = (long) Math.ceil(
-                                            (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
-                                            );
-
-        Log.d(TAG, Long.toString(daysSinceCinnamintEpoch));
-
+        daysSinceCinnamintEpoch = getDaysSinceCinnamintEpoch(Calendar.getInstance());
 
         WordDatabase wdb = new WordDatabase(getApplicationContext());
         wdb.open();
         availableWords = wdb.getEveryWordByDate(daysSinceCinnamintEpoch + 100);
         wdb.close();
+
+        Log.d(TAG, getApplicationInfo().toString());
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -106,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
 
     }
 
