@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
     }
 
-    public long getDaysSinceCinnamintEpoch(Calendar today) {
+    public static long getDaysSinceCinnamintEpoch(Calendar today) {
         return (long) Math.ceil(
                 (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
         );

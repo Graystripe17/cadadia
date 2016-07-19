@@ -46,4 +46,13 @@ public class WordDatabase extends SQLiteAssetHelper {
         cursor.close();
         return list;
     }
+
+    public Words getTodayWord(long id) {
+        Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM word WHERE WORD_ID = ? LIMIT 1", new String[] {Long.toString(id)});
+        String text = cursor.getString(0);
+        String def = cursor.getString(1);
+        cursor.close();
+        return new Words(text, def);
+    }
+
 }
