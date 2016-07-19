@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int CINNAMINT_EPOCH_MONTH = 7 - 1;
     public static final int CINNAMINT_EPOCH_YEAR = 2016;
 
-    private static final String TAG = "CINNAMINT_COTIDIANO";
+    public static final String TAG = "CINNAMINT_COTIDIANO";
 
 
     /**
@@ -57,16 +57,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-    public void instantiateCinnamintEpoch() {
-        // July 14, 2016: day 1 of development
+    public static long getDaysSinceCinnamintEpoch(Calendar today) {
+        // Instantiate CInnamint Epoch
+        // July 15, 2016: day 1 of development
         // Add the appropriate number of days
         cinnamintEpoch = Calendar.getInstance();
         cinnamintEpoch.set(Calendar.DAY_OF_MONTH, CINNAMINT_EPOCH_DAY);
         cinnamintEpoch.set(Calendar.MONTH, CINNAMINT_EPOCH_MONTH);
         cinnamintEpoch.set(Calendar.YEAR, CINNAMINT_EPOCH_YEAR);
-    }
 
-    public static long getDaysSinceCinnamintEpoch(Calendar today) {
         return (long) Math.ceil(
                 (today.getTimeInMillis() - cinnamintEpoch.getTimeInMillis()) / MILLISECONDS_PER_DAY
         );
@@ -82,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
-        instantiateCinnamintEpoch();
 
         daysSinceCinnamintEpoch = getDaysSinceCinnamintEpoch(Calendar.getInstance());
 
@@ -101,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mSectionsPagerAdapter.notifyDataSetChanged();
 
         // Move to farthest right position
         mViewPager.setCurrentItem(availableWords.size() - 1);
@@ -117,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mSectionsPagerAdapter != null) {
+            mSectionsPagerAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

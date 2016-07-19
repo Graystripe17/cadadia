@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.Calendar;
@@ -13,6 +14,9 @@ import java.util.Calendar;
 public class DailyAppWidgetProvider extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+
+        Log.d(MainActivity.TAG, "onUpdate called on " + Calendar.getInstance().getTime());
+
         final int N = appWidgetIds.length;
 
         // Loop through each App Widget that belongs to this provider (1)
