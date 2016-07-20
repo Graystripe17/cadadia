@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/daily_widget_background"
-    android:id="@+id/widget_layout">
+    android:id="@+id/widget_layout"
+    android:gravity="center_vertical|center_horizontal">
 
 
     <TextView
@@ -13,7 +14,8 @@
         android:layout_gravity="center_horizontal"
         android:textSize="18sp"
         android:layout_margin="5dip"
-        android:text="@string/app_name" />
+        android:text="@string/app_name"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
