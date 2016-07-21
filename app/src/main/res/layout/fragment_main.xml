@@ -76,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:text="Definition"
-                android:layout_margin="20dip" />
+                android:layout_margin="20dip"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 
