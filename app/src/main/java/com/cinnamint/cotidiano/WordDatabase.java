@@ -58,7 +58,7 @@ public class WordDatabase extends SQLiteAssetHelper {
 
     public Words getTodayWord(long id) {
         Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM " + TABLE_WORD + " WHERE WORD_ID = ? LIMIT 1", new String[] {Long.toString(
-                                                                                                                                                                (id-1) % getWordRowCount() + 1
+                                                                                                                                                                ((id-1) % getWordRowCount()) + 1
                                                                                                                                                             )
                                                                                                                                                         });
         Log.d(MainActivity.TAG, "getTodayWord count " + id);

@@ -33,7 +33,8 @@ public class DailyAppWidgetProvider extends AppWidgetProvider {
 
             WordDatabase wdb = new WordDatabase(context);
             wdb.open();
-            Words todayWord = wdb.getTodayWord(MainActivity.getDaysSinceCinnamintEpoch(Calendar.getInstance()) + 1);
+            Log.d(MainActivity.TAG, "Days since cinnamintEpoch " + MainActivity.getDaysSinceCinnamintEpoch(Calendar.getInstance()));
+            Words todayWord = wdb.getTodayWord(1 + MainActivity.getDaysSinceCinnamintEpoch(Calendar.getInstance()));
             wdb.close();
 
             views.setTextViewText(R.id.spanish_word, todayWord.getText());
