@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(mSectionsPagerAdapter != null) {
             mSectionsPagerAdapter.notifyDataSetChanged();
+            // Move to farthest right position
+            mViewPager.setCurrentItem(availableWords.size() - 1);
         }
     }
 
