@@ -4,4 +4,6 @@
     <string name="section_format">%1$s %2$d from section: %3$s</string>
     <string name="english">English</string>
     <string name="spanish">Spanish</string>
+    <string name="view_source">View source on Github</string>
+    <string name="rate">Rate on Google Play</string>
 </resources>

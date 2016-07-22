@@ -1,5 +1,7 @@
 package com.cinnamint.cotidiano;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -132,6 +134,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void openGithub() {
+        Uri webpage = Uri.parse("https://github.com/Graystripe17/cadadia");
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if(intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    private void openGooglePlay() {
+        Uri webpage = Uri.parse("https://play.google.com/store/apps/details?id=cinnamint.com.phonesaber&hl=en");
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if(intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -140,9 +157,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_view_source) {
+            openGithub();
             return true;
         }
+        if (id == R.id.action_rate) {
+            openGooglePlay();
+            return true;
+        }
+
+
 
         return super.onOptionsItemSelected(item);
     }
