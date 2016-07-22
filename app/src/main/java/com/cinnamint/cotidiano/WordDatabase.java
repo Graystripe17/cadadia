@@ -39,7 +39,10 @@ public class WordDatabase extends SQLiteAssetHelper {
         Log.d(MainActivity.TAG, "getEveryWordByDate count " + id);
 
         List<Words> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM " + TABLE_WORD + " WHERE WORD_ID <= ?", new String[] {Long.toString(id)});
+        Cursor cursor = database.rawQuery("SELECT WORD_TEXT, WORD_DEFINITION FROM " + TABLE_WORD + " WHERE WORD_ID <= ?", new String[] {Long.toString(
+                                                                                                                                                        ((id-1) % getWordRowCount()) + 1
+                                                                                                                                                    )
+                                                                                                                                                });
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             String text = cursor.getString(0);
