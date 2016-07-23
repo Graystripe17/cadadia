@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void openGooglePlay() {
-        Uri webpage = Uri.parse("https://play.google.com/store/apps/details?id=cinnamint.com.phonesaber&hl=en");
+        Uri webpage = Uri.parse("https://play.google.com/store/apps/details?id=com.cinnamint.cotidiano&hl=en");
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if(intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
